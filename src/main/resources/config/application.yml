@@ -1,0 +1,23 @@
+spring:
+    application:
+        name: marketplace
+    jpa:
+        database: POSTGRESQL
+        hibernate:
+            ddl-auto: none
+            naming:
+                strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:postgresql://localhost:5432/marketplace
+        name:
+        username: postgres
+        password: root
+
+server:
+    port: 8080
