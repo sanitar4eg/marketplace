@@ -3,8 +3,9 @@ spring:
         name: marketplace
     jpa:
         database: POSTGRESQL
+        show-sql: true
         hibernate:
-            ddl-auto: none
+            ddl-auto: create-drop
             naming:
                 strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
     devtools:
