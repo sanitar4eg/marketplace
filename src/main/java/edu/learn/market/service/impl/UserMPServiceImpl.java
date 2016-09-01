@@ -20,8 +20,12 @@ public class UserMPServiceImpl implements UserMPService {
 
     private final Logger log = LoggerFactory.getLogger(UserMPServiceImpl.class);
 
+    private final UserMPRepository userMPRepository;
+
     @Inject
-    private UserMPRepository userMPRepository;
+    public UserMPServiceImpl(UserMPRepository userMPRepository) {
+        this.userMPRepository = userMPRepository;
+    }
 
     /**
      * Save a userMP.

@@ -20,8 +20,12 @@ public class ItemServiceImpl implements ItemService {
 
     private final Logger log = LoggerFactory.getLogger(ItemServiceImpl.class);
 
+    private final ItemRepository itemRepository;
+
     @Inject
-    private ItemRepository itemRepository;
+    public ItemServiceImpl(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     /**
      * Save a item.
