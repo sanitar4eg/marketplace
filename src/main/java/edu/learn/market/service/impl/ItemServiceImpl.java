@@ -1,7 +1,7 @@
 package edu.learn.market.service.impl;
 
 import edu.learn.market.domain.Item;
-import edu.learn.market.repository.ItemRepository;
+import edu.learn.market.repository.GenericDao;
 import edu.learn.market.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +20,10 @@ public class ItemServiceImpl implements ItemService {
 
     private final Logger log = LoggerFactory.getLogger(ItemServiceImpl.class);
 
-    private final ItemRepository itemRepository;
+    private final GenericDao<Item, Long> itemRepository;
 
     @Inject
-    public ItemServiceImpl(ItemRepository itemRepository) {
+    public ItemServiceImpl(GenericDao<Item, Long> itemRepository) {
         this.itemRepository = itemRepository;
     }
 
