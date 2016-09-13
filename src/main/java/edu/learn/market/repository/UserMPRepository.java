@@ -11,7 +11,7 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface UserMPRepository extends JpaRepository<UserMP, Long> {
 
-    Optional<UserMP> findOneByLogin(String login);
+    Optional<UserMP> findOneByEmail(String email);
 
 }
 

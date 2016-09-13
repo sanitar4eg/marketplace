@@ -30,11 +30,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        LOG.debug("Authenticating {}", login);
-        String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        Optional<UserMP> userFromDatabase = userMPRepository.findOneByLogin(lowercaseLogin);
-        return new User(lowercaseLogin, userFromDatabase.get().getPassword(), Collections.EMPTY_LIST);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        LOG.debug("Authenticating {}", email);
+        String lowercaseEmail = email.toLowerCase(Locale.ENGLISH);
+        Optional<UserMP> userFromDatabase = userMPRepository.findOneByEmail(lowercaseEmail);
+        return new User(lowercaseEmail, userFromDatabase.get().getPassword(), Collections.EMPTY_LIST);
 //        return userFromDatabase
 //                .map(userMP -> new User(lowercaseLogin, userMP.getPassword(), Collections.EMPTY_LIST))
 //                .orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found"));

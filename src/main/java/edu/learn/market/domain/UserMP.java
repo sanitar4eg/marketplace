@@ -1,8 +1,10 @@
 package edu.learn.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -27,8 +29,9 @@ public class UserMP implements Serializable {
     @Column(name = "billing_address")
     private String billingAddress;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "email")
+    @NotEmpty
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -74,17 +77,17 @@ public class UserMP implements Serializable {
         this.billingAddress = billingAddress;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
     public UserMP login(String login) {
-        this.login = login;
+        this.email = login;
         return this;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -164,7 +167,7 @@ public class UserMP implements Serializable {
                 "id=" + id +
                 ", fullName='" + fullName + "'" +
                 ", billingAddress='" + billingAddress + "'" +
-                ", login='" + login + "'" +
+                ", email='" + email + "'" +
                 ", password='" + password + "'" +
                 '}';
     }
