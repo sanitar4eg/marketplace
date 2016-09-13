@@ -243,6 +243,9 @@
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </dependency>
             </dependencies>
+            <properties>
+                <logback.log-level>DEBUG</logback.log-level>
+            </properties>
         </profile>
 
     </profiles>
