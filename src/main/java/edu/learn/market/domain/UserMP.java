@@ -1,6 +1,7 @@
 package edu.learn.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -30,10 +31,12 @@ public class UserMP implements Serializable {
     private String billingAddress;
 
     @Column(name = "email")
+    @Email
     @NotEmpty
     private String email;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
     @ManyToMany(mappedBy = "users")
