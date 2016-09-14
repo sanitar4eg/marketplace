@@ -1,24 +1,32 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html" %>
-<spring:url value="css/main.css" var="mainCss" />
+<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="header.jsp" %>
 
-<html>
-<head>
-    <link href="${mainCss}" rel="stylesheet" />
-    <title>Registration Form</title>
-</head>
 <body>
-<form:form method="Post">
-    <table>
-        <tr>
-            <td class="error-text">User Name:</td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Submit"/></td>
-        </tr>
-    </table>
-</form:form>
+<div class="container">
+
+    <form:form class="form-email" method="post" modelAttribute="userMP">
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+        <h2>Заполните следующие данные:</h2>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <form:input type="email" id="inputEmail" path="email" class="form-control" placeholder="Email" required="true"
+                    autofocus="true"/>
+        <form:errors path="email"/>
+        <label for="password" class="sr-only">Пароль</label>
+        <form:input type="password" id="password" path="password" class="form-control" placeholder="Пароль"
+                    required="true"/>
+        <form:errors path="password"/>
+        <label for="fullName" class="sr-only">Имя</label>
+        <form:input type="text" id="fullName" path="fullName" class="form-control" placeholder="Имя" required="true"/>
+        <form:errors path="fullName"/>
+        <label for="billingAddress" class="sr-only">Адресс доставки</label>
+        <form:input type="text" id="billingAddress" path="billingAddress" class="form-control" placeholder="Адрес"
+                    required="true"/>
+        <form:errors path="billingAddress"/>
+        <form:button class="btn btn-lg btn-primary btn-block" type="submit" id="email">Сохранить</form:button>
+    </form:form>
+</div> <!-- /container -->
 </body>
-</html>
