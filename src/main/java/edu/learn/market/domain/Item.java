@@ -3,7 +3,6 @@ package edu.learn.market.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -41,7 +40,6 @@ public class Item implements Serializable {
     @Column(name = "buy_it_now")
     private Boolean buyItNow;
 
-    @NotNull
     @Column(name = "bid_increment", nullable = false)
     private Long bidIncrement;
 

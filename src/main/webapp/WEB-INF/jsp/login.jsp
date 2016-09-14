@@ -19,7 +19,7 @@
         <form:input type="password" id="inputPassword" path="password" class="form-control" placeholder="Пароль"
                     required="true"/>
         <form:errors path="password"/>
-        <form:button class="btn btn-lg btn-primary btn-block" type="submit" id="email">Войти</form:button>
+        <form:button class="btn btn-lg btn-primary btn-block" type="submit">Войти</form:button>
     </form:form>
 
 </div> <!-- /container -->

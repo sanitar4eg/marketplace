@@ -26,7 +26,7 @@
         <form:input type="text" id="billingAddress" path="billingAddress" class="form-control" placeholder="Адрес"
                     required="true"/>
         <form:errors path="billingAddress"/>
-        <form:button class="btn btn-lg btn-primary btn-block" type="submit" id="email">Сохранить</form:button>
+        <form:button class="btn btn-lg btn-primary btn-block" type="submit">Сохранить</form:button>
     </form:form>
 </div> <!-- /container -->
 </body>
