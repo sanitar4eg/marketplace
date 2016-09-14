@@ -17,7 +17,7 @@
         <form:errors path="email"/>
         <label for="password" class="sr-only">Пароль</label>
         <form:input type="password" id="password" path="password" class="form-control" placeholder="Пароль"
-                    required="true"/>
+                    required="true" pattern=".{6,}" title="6 символов минимум"/>
         <form:errors path="password"/>
         <label for="fullName" class="sr-only">Имя</label>
         <form:input type="text" id="fullName" path="fullName" class="form-control" placeholder="Имя" required="true"/>
