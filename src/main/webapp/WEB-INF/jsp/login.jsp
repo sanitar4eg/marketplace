@@ -6,16 +6,14 @@
 <body>
 <div class="container">
 
-    <form:form class="form-email" method="post" modelAttribute="userMP">
-
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <form:form class="form" method="post" modelAttribute="userMP">
 
         <h2>Пожалуйста авторизуйтесь</h2>
-        <label for="inputEmail" class="sr-only">Email</label>
+        <label for="inputEmail">Email</label>
         <form:input type="email" id="inputEmail" path="email" class="form-control" placeholder="Email" required="true"
                     autofocus="true"/>
         <form:errors path="email"/>
-        <label for="inputPassword" class="sr-only">Пароль</label>
+        <label for="inputPassword">Пароль</label>
         <form:input type="password" id="inputPassword" path="password" class="form-control" placeholder="Пароль"
                     required="true"/>
         <form:errors path="password"/>
