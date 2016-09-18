@@ -1,10 +1,12 @@
 package edu.learn.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -29,19 +31,20 @@ public class Item implements Serializable {
     private String description;
 
     @Column(name = "start_price")
-    private Long startPrice;
+    private Double startPrice;
 
     @Column(name = "time_left")
-    private Long timeLeft;
+    @DateTimeFormat(pattern = "HH:mm", iso = DateTimeFormat.ISO.TIME)
+    private LocalTime timeLeft;
 
     @Column(name = "start_bidding_date")
-    private LocalDate startBiddingDate;
+    private LocalDateTime startBiddingDate;
 
     @Column(name = "buy_it_now")
     private Boolean buyItNow;
 
     @Column(name = "bid_increment", nullable = false)
-    private Long bidIncrement;
+    private Double bidIncrement;
 
     @ManyToMany(mappedBy = "items")
     @JsonIgnore
@@ -85,50 +88,50 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Long getStartPrice() {
+    public Double getStartPrice() {
         return startPrice;
     }
 
-    public Item startPrice(Long startPrice) {
+    public Item startPrice(Double startPrice) {
         this.startPrice = startPrice;
         return this;
     }
 
-    public void setStartPrice(Long startPrice) {
+    public void setStartPrice(Double startPrice) {
         this.startPrice = startPrice;
     }
 
-    public Long getTimeLeft() {
+    public LocalTime getTimeLeft() {
         return timeLeft;
     }
 
-    public Item timeLeft(Long timeLeft) {
+    public Item timeLeft(LocalTime timeLeft) {
         this.timeLeft = timeLeft;
         return this;
     }
 
-    public void setTimeLeft(Long timeLeft) {
+    public void setTimeLeft(LocalTime timeLeft) {
         this.timeLeft = timeLeft;
     }
 
-    public LocalDate getStartBiddingDate() {
+    public LocalDateTime getStartBiddingDate() {
         return startBiddingDate;
     }
 
-    public Item startBiddingDate(LocalDate startBiddingDate) {
+    public Item startBiddingDate(LocalDateTime startBiddingDate) {
         this.startBiddingDate = startBiddingDate;
         return this;
     }
 
-    public void setStartBiddingDate(LocalDate startBiddingDate) {
+    public void setStartBiddingDate(LocalDateTime startBiddingDate) {
         this.startBiddingDate = startBiddingDate;
     }
 
-    public Boolean isBuyItNow() {
+    public Boolean getBuyItNow() {
         return buyItNow;
     }
 
-    public Item buyItNow(Boolean buyItNow) {
+    public Item isBuyItNow(Boolean buyItNow) {
         this.buyItNow = buyItNow;
         return this;
     }
@@ -137,16 +140,16 @@ public class Item implements Serializable {
         this.buyItNow = buyItNow;
     }
 
-    public Long getBidIncrement() {
+    public Double getBidIncrement() {
         return bidIncrement;
     }
 
-    public Item bidIncrement(Long bidIncrement) {
+    public Item bidIncrement(Double bidIncrement) {
         this.bidIncrement = bidIncrement;
         return this;
     }
 
-    public void setBidIncrement(Long bidIncrement) {
+    public void setBidIncrement(Double bidIncrement) {
         this.bidIncrement = bidIncrement;
     }
 
