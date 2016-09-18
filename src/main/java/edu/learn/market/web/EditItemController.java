@@ -26,7 +26,7 @@ public class EditItemController {
     public String postEdit(@ModelAttribute @Validated Item item, BindingResult result, Model model) {
         LOG.debug("EditItem post request: " + item);
         if (result.hasErrors()) {
-            LOG.warn("Errors", result);
+            LOG.warn("Errors: {}", result);
             model.addAttribute("item", item);
         }
         return "edit-item";
