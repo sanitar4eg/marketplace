@@ -48,3 +48,19 @@
 </div> <!-- /container -->
 
 </body>
+
+<script type="text/javascript">
+    (function () {
+        function setBuyItNow(event) {
+            var el = event.target;
+            if (el.checked) {
+                console.log('true')
+            } else {
+                console.log('false')
+            }
+        }
+
+        var el = document.getElementById("buyItNow");
+        el.addEventListener('change', setBuyItNow, false);
+    })();
+</script>
