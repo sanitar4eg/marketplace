@@ -51,16 +51,25 @@
 
 <script type="text/javascript">
     (function () {
-        function setBuyItNow(event) {
-            var el = event.target;
-            if (el.checked) {
-                console.log('true')
+        function setButItNow(buyItNow) {
+            var bidIncrement = document.getElementById("bidIncrement");
+            var timeLeft = document.getElementById("timeLeft");
+            if (buyItNow.checked) {
+                bidIncrement.value = null;
+                bidIncrement.disabled = true;
+                timeLeft.required = false;
             } else {
-                console.log('false')
+                bidIncrement.disabled = false;
+                timeLeft.required = true;
             }
         }
 
-        var el = document.getElementById("buyItNow");
-        el.addEventListener('change', setBuyItNow, false);
+        function buyItNowClick(event) {
+            setButItNow(event.target);
+        }
+
+        var buyItNow = document.getElementById("buyItNow");
+        buyItNow.addEventListener('change', buyItNowClick, false);
+        setButItNow(buyItNow);
     })();
 </script>
