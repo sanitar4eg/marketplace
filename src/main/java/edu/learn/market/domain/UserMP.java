@@ -2,10 +2,10 @@ package edu.learn.market.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -38,7 +38,7 @@ public class UserMP implements Serializable {
 
     @Column(name = "password")
     @NotNull
-    @Min(6)
+    @Length(min = 6)
     private String password;
 
     @ManyToMany(mappedBy = "users")
