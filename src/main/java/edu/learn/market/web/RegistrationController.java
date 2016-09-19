@@ -26,11 +26,11 @@ public class RegistrationController {
     public String postRegistration(@ModelAttribute @Validated UserMP userMP, BindingResult result, Model model) {
         LOG.debug("Registration post request");
         if (result.hasErrors()) {
-            LOG.warn("Errors", result);
+            LOG.warn("Errors: {}, {}", result, userMP);
             model.addAttribute("userMP", userMP);
             return "registration";
         }
 
-        return "login";
+        return "registration";
     }
 }
