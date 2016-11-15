@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
@@ -48,6 +49,7 @@ public class BidServiceTest {
 
     @Before
     public void setUp() throws Exception {
+        assertNotNull(bidRepository);
         bid = createEntity(em);
     }
 

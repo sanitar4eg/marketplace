@@ -1,12 +1,21 @@
 package edu.learn.market.repository;
 
 import edu.learn.market.domain.Bid;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
 
-/**
- * Spring Data JPA repository for the Bid entity.
- */
-@SuppressWarnings("unused")
-public interface BidRepository extends JpaRepository<Bid, Long> {
+import java.util.List;
+
+@NoRepositoryBean
+public interface BidRepository {
+
+    Bid save(Bid bid);
+
+    Bid saveAndFlush(Bid bid);
+
+    Bid findOne(Long id);
+
+    List<Bid> findAll();
+
+    void delete(Long id);
 
 }
