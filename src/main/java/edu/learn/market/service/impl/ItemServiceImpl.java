@@ -33,6 +33,7 @@ public class ItemServiceImpl implements ItemService {
      * @param item the entity to save
      * @return the persisted entity
      */
+    @Transactional
     public Item save(Item item) {
         log.debug("Request to save Item : {}", item);
         return itemRepository.save(item);
@@ -66,6 +67,7 @@ public class ItemServiceImpl implements ItemService {
      *
      * @param id the id of the entity
      */
+    @Transactional
     public void delete(Long id) {
         log.debug("Request to delete Item : {}", id);
         itemRepository.delete(id);

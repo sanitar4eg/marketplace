@@ -29,6 +29,7 @@ public class BidServiceImpl implements BidService {
      * @param bid the entity to save
      * @return the persisted entity
      */
+    @Transactional
     public Bid save(Bid bid) {
         LOG.debug("Request to save Bid : {}", bid);
         return bidRepository.save(bid);
@@ -62,6 +63,7 @@ public class BidServiceImpl implements BidService {
      *
      * @param id the id of the entity
      */
+    @Transactional
     public void delete(Long id) {
         LOG.debug("Request to delete Bid : {}", id);
         bidRepository.delete(id);
