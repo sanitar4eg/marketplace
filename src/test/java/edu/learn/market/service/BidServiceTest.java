@@ -2,6 +2,8 @@ package edu.learn.market.service;
 
 import edu.learn.market.MarketplaceApp;
 import edu.learn.market.domain.Bid;
+import edu.learn.market.domain.Item;
+import edu.learn.market.domain.UserMP;
 import edu.learn.market.repository.BidRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,11 +41,14 @@ public class BidServiceTest {
     @Inject
     private BidRepository bidRepository;
 
+    @Inject
+    private EntityManager em;
+
     private Bid bid;
 
     @Before
     public void setUp() throws Exception {
-        bid = createEntity();
+        bid = createEntity(em);
     }
 
     /**
@@ -51,8 +57,19 @@ public class BidServiceTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static Bid createEntity() {
-        return new Bid().bid(DEFAULT_BID);
+    public static Bid createEntity(EntityManager em) {
+        Bid bid = new Bid().bid(DEFAULT_BID);
+        // Add required entity
+        UserMP userMP = UserMPServiceTest.createEntity(em);
+        em.persist(userMP);
+        em.flush();
+        bid.setUserMP(userMP);
+        // Add required entity
+        Item item = ItemServiceTest.createEntity(em);
+        em.persist(item);
+        em.flush();
+        bid.setItem(item);
+        return bid;
     }
 
     @Test
@@ -64,9 +81,7 @@ public class BidServiceTest {
         bidService.save(bid);
 
         // Validate the Bid in the database
-        List<Bid> bids = bidRepository.findAll();
-        assertListSize(bids, databaseSizeBeforeCreate + 1);
-        checkBidValue(bids.get(bids.size() - 1), DEFAULT_BID);
+        checkResults(databaseSizeBeforeCreate, bidService.findAll(), DEFAULT_BID);
     }
 
     @Test
@@ -77,7 +92,7 @@ public class BidServiceTest {
 
         // Get the bid
         one = bidService.findOne(one.getId());
-        checkBidValue(one, DEFAULT_BID);
+        assertThat(one.getBid()).isEqualTo(DEFAULT_BID);
     }
 
     @Test
@@ -88,9 +103,7 @@ public class BidServiceTest {
         bidRepository.saveAndFlush(bid);
 
         // Validate the Bid in the database
-        List<Bid> bids = bidService.findAll();
-        assertListSize(bids, databaseSizeBeforeCreate + 1);
-        checkBidValue(bids.get(bids.size() - 1), DEFAULT_BID);
+        checkResults(databaseSizeBeforeCreate, bidService.findAll(), DEFAULT_BID);
     }
 
     @Test
@@ -102,7 +115,7 @@ public class BidServiceTest {
 
     @Test
     @Transactional
-    public void updateBid() throws Exception {
+    public void update() throws Exception {
         // Initialize the database
         bidService.save(bid);
         int databaseSizeBeforeUpdate = bidRepository.findAll().size();
@@ -114,17 +127,17 @@ public class BidServiceTest {
         bidService.save(updatedBid);
 
         // Validate the Bid in the database
-        List<Bid> bids = bidService.findAll();
-        assertListSize(bids, databaseSizeBeforeUpdate);
+        List<Bid> bids = bidRepository.findAll();
+        assertThat(bids).hasSize(databaseSizeBeforeUpdate);
         Bid testBid = bids.get(bids.size() - 1);
-        checkBidValue(testBid, UPDATED_BID);
+        assertThat(testBid.getBid()).isEqualTo(UPDATED_BID);
     }
 
     @Test
     @Transactional
     public void delete() throws Exception {
         // Initialize the database
-        bidService.save(bid);
+        bidRepository.save(bid);
         int databaseSizeBeforeDelete = bidRepository.findAll().size();
 
         // Get the bid
@@ -132,16 +145,12 @@ public class BidServiceTest {
 
         // Validate the database is empty
         List<Bid> bids = bidRepository.findAll();
-        assertListSize(bids, databaseSizeBeforeDelete - 1);
-
+        assertThat(bids).hasSize(databaseSizeBeforeDelete - 1);
     }
 
-    private void checkBidValue(Bid testBid, Long bidValue) {
-        assertThat(testBid.getBid()).isEqualTo(bidValue);
+    private void checkResults(int databaseSizeBeforeUpdate, List<Bid> bids, Long bid) {
+        assertThat(bids).hasSize(databaseSizeBeforeUpdate + 1);
+        Bid testBid = bids.get(bids.size() - 1);
+        assertThat(testBid.getBid()).isEqualTo(bid);
     }
-
-    private void assertListSize(List<Bid> bids, int expected) {
-        assertThat(bids).hasSize(expected);
-    }
-
 }
