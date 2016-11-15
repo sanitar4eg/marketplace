@@ -46,13 +46,12 @@ public class Item implements Serializable {
     @Column(name = "bid_increment", nullable = false)
     private Double bidIncrement;
 
-    @ManyToMany(mappedBy = "items")
+    @OneToMany(mappedBy = "item")
     @JsonIgnore
     private Set<Bid> bids = new HashSet<>();
 
-    @OneToMany(mappedBy = "items")
-    @JsonIgnore
-    private Set<UserMP> userMPS = new HashSet<>();
+    @ManyToOne
+    private UserMP userMP;
 
     public Long getId() {
         return id;
@@ -127,11 +126,11 @@ public class Item implements Serializable {
         this.startBiddingDate = startBiddingDate;
     }
 
-    public Boolean getBuyItNow() {
+    public Boolean isBuyItNow() {
         return buyItNow;
     }
 
-    public Item isBuyItNow(Boolean buyItNow) {
+    public Item buyItNow(Boolean buyItNow) {
         this.buyItNow = buyItNow;
         return this;
     }
@@ -164,13 +163,13 @@ public class Item implements Serializable {
 
     public Item addBid(Bid bid) {
         bids.add(bid);
-        bid.getItems().add(this);
+        bid.setItem(this);
         return this;
     }
 
     public Item removeBid(Bid bid) {
         bids.remove(bid);
-        bid.getItems().remove(this);
+        bid.setItem(null);
         return this;
     }
 
@@ -178,29 +177,17 @@ public class Item implements Serializable {
         this.bids = bids;
     }
 
-    public Set<UserMP> getUserMPS() {
-        return userMPS;
+    public UserMP getUserMP() {
+        return userMP;
     }
 
-    public Item userMPS(Set<UserMP> UserMPS) {
-        this.userMPS = UserMPS;
+    public Item userMP(UserMP userMP) {
+        this.userMP = userMP;
         return this;
     }
 
-    public Item addUserMP(UserMP UserMP) {
-        userMPS.add(UserMP);
-        UserMP.setItems(this);
-        return this;
-    }
-
-    public Item removeUserMP(UserMP UserMP) {
-        userMPS.remove(UserMP);
-        UserMP.setItems(null);
-        return this;
-    }
-
-    public void setUserMPS(Set<UserMP> UserMPS) {
-        this.userMPS = UserMPS;
+    public void setUserMP(UserMP UserMP) {
+        this.userMP = UserMP;
     }
 
     @Override

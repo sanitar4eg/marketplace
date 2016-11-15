@@ -3,9 +3,7 @@ package edu.learn.market.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Bid.
@@ -23,19 +21,13 @@ public class Bid implements Serializable {
     @Column(name = "bid")
     private Long bid;
 
-    @ManyToMany
+    @ManyToOne
     @NotNull
-    @JoinTable(name = "bid_users",
-            joinColumns = @JoinColumn(name = "bids_id", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "users_id", referencedColumnName = "ID"))
-    private Set<UserMP> users = new HashSet<>();
+    private UserMP userMP;
 
-    @ManyToMany
+    @ManyToOne
     @NotNull
-    @JoinTable(name = "bid_items",
-            joinColumns = @JoinColumn(name = "bids_id", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "items_id", referencedColumnName = "ID"))
-    private Set<Item> items = new HashSet<>();
+    private Item item;
 
     public Long getId() {
         return id;
@@ -58,54 +50,30 @@ public class Bid implements Serializable {
         this.bid = bid;
     }
 
-    public Set<UserMP> getUsers() {
-        return users;
+    public UserMP getUserMP() {
+        return userMP;
     }
 
-    public Bid users(Set<UserMP> UserMPS) {
-        this.users = UserMPS;
+    public Bid userMP(UserMP UserMP) {
+        this.userMP = UserMP;
         return this;
     }
 
-    public Bid addUserMP(UserMP UserMP) {
-        users.add(UserMP);
-        UserMP.getBids().add(this);
+    public void setUserMP(UserMP UserMP) {
+        this.userMP = UserMP;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public Bid item(Item item) {
+        this.item = item;
         return this;
     }
 
-    public Bid removeUserMP(UserMP UserMP) {
-        users.remove(UserMP);
-        UserMP.getBids().remove(this);
-        return this;
-    }
-
-    public void setUsers(Set<UserMP> UserMPS) {
-        this.users = UserMPS;
-    }
-
-    public Set<Item> getItems() {
-        return items;
-    }
-
-    public Bid items(Set<Item> items) {
-        this.items = items;
-        return this;
-    }
-
-    public Bid addItem(Item item) {
-        items.add(item);
-        item.getBids().add(this);
-        return this;
-    }
-
-    public Bid removeItem(Item item) {
-        items.remove(item);
-        item.getBids().remove(this);
-        return this;
-    }
-
-    public void setItems(Set<Item> items) {
-        this.items = items;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     @Override

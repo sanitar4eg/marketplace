@@ -41,12 +41,13 @@ public class UserMP implements Serializable {
     @Length(min = 6)
     private String password;
 
-    @ManyToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userMP")
     @JsonIgnore
     private Set<Bid> bids = new HashSet<>();
 
-    @ManyToOne
-    private Item items;
+    @OneToMany(mappedBy = "userMP")
+    @JsonIgnore
+    private Set<Item> items = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -86,7 +87,7 @@ public class UserMP implements Serializable {
         return email;
     }
 
-    public UserMP login(String login) {
+    public UserMP email(String login) {
         this.email = login;
         return this;
     }
@@ -117,15 +118,15 @@ public class UserMP implements Serializable {
         return this;
     }
 
-    public UserMP addBid(Bid bid) {
+    public UserMP addBids(Bid bid) {
         bids.add(bid);
-        bid.getUsers().add(this);
+        bid.setUserMP(this);
         return this;
     }
 
-    public UserMP removeBid(Bid bid) {
+    public UserMP removeBids(Bid bid) {
         bids.remove(bid);
-        bid.getUsers().remove(this);
+        bid.setUserMP(null);
         return this;
     }
 
@@ -133,17 +134,25 @@ public class UserMP implements Serializable {
         this.bids = bids;
     }
 
-    public Item getItems() {
+    public Set<Item> getItems() {
         return items;
     }
 
-    public UserMP items(Item item) {
-        this.items = item;
+    public UserMP items(Set<Item> items) {
+        this.items = items;
         return this;
     }
 
-    public void setItems(Item item) {
-        this.items = item;
+    public UserMP addItems(Item item) {
+        items.add(item);
+        item.setUserMP(this);
+        return this;
+    }
+
+    public UserMP removeItems(Item item) {
+        items.remove(item);
+        item.setUserMP(null);
+        return this;
     }
 
     @Override
