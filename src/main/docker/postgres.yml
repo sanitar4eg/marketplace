@@ -1,0 +1,12 @@
+version: '2'
+services:
+    marketplace-postgresql:
+        container_name: marketplace-postgresql
+        image: postgres:9.5.3
+        # volumes:
+        #     - ~/volumes/edu/marketplace/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=marketplace
+            - POSTGRES_PASSWORD=root
+        ports:
+            - 5432:5432

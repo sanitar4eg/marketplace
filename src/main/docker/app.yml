@@ -1,0 +1,15 @@
+version: '2'
+services:
+    marketplace-app:
+        image: marketplace
+        external_links:
+            - marketplace-postgresql:postgresql
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/marketplace
+            - APP_SLEEP=10
+        ports:
+            - 8080:8080
+    marketplace-postgresql:
+        extends:
+            file: postgresql.yml
+            service: marketplace-postgresql
