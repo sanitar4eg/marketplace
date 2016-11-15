@@ -33,7 +33,6 @@ public class UserMPServiceImpl implements UserMPService {
      * @param userMP the entity to save
      * @return the persisted entity
      */
-    @Transactional
     public UserMP save(UserMP userMP) {
         log.debug("Request to save UserMP : {}", userMP);
         return userMPRepository.save(userMP);
@@ -67,7 +66,6 @@ public class UserMPServiceImpl implements UserMPService {
      *
      * @param id the id of the entity
      */
-    @Transactional
     public void delete(Long id) {
         log.debug("Request to delete UserMP : {}", id);
         userMPRepository.delete(id);
