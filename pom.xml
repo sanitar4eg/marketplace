@@ -125,8 +125,8 @@
     </dependencies>
 
     <build>
-        <finalName>${project.artifactId}</finalName>
         <defaultGoal>spring-boot:run</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>
@@ -206,23 +206,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>0.4.11</version>
-                <configuration>
-                    <imageName>edu/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
@@ -246,6 +229,7 @@
                 </plugins>
             </build>
             <properties>
+                <logback.log-level>DEBUG</logback.log-level>
                 <!-- default Spring profiles -->
                 <spring.profiles.active>dev</spring.profiles.active>
             </properties>
@@ -260,9 +244,6 @@
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </dependency>
             </dependencies>
-            <properties>
-                <logback.log-level>DEBUG</logback.log-level>
-            </properties>
         </profile>
 
     </profiles>
