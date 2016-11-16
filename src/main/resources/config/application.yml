@@ -8,6 +8,10 @@ spring:
             ddl-auto: create
             naming:
                 strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+        properties:
+            hibernate:
+                current_session_context_class:
+                    org.springframework.orm.hibernate4.SpringSessionContext
     devtools:
         restart:
             enabled: true
