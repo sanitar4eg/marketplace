@@ -53,6 +53,11 @@ public class UserMP implements Serializable {
         return id;
     }
 
+    public UserMP id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

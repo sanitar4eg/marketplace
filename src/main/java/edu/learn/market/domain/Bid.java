@@ -33,6 +33,11 @@ public class Bid implements Serializable {
         return id;
     }
 
+    public Bid id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

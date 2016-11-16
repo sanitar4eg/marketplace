@@ -57,6 +57,11 @@ public class Item implements Serializable {
         return id;
     }
 
+    public Item id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
