@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public class GenericDaoHibernateImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
@@ -24,12 +25,17 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
     @Override
     public T save(T var1) {
         Session session = getSession();
-        return session.get(type, session.save(var1));
+        session.saveOrUpdate(var1);
+        session.flush();
+        return var1;
     }
 
     @Override
-    public void delete(PK var1) {
-        getSession().delete(var1);
+    public void delete(PK id) {
+        Session session = getSession();
+        Optional.ofNullable(session.load(type, id))
+                .ifPresent(session::delete);
+        session.flush();
     }
 
     @Override
@@ -48,11 +54,6 @@ public class GenericDaoHibernateImpl<T, PK extends Serializable> implements Gene
         Serializable pk = session.save(var1);
         session.flush();
         return session.get(type, pk);
-    }
-
-
-    public SessionFactory getFactory() {
-        return factory;
     }
 
     public void setFactory(SessionFactory factory) {
