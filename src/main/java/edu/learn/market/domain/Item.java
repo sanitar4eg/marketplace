@@ -131,7 +131,7 @@ public class Item implements Serializable {
         this.startBiddingDate = startBiddingDate;
     }
 
-    public Boolean isBuyItNow() {
+    public Boolean getBuyItNow() {
         return buyItNow;
     }
 
