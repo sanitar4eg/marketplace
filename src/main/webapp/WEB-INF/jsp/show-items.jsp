@@ -20,6 +20,7 @@
         </tr>
         </thead>
         <tbody>
+        <%--@elvariable id="items" type="java.util.List"--%>
         <core:forEach var="item" items="${items}">
             <tr>
                 <td>${item.title}</td>
@@ -39,6 +40,24 @@
 
 <script type="text/javascript">
     (function () {
+
+        jQuery.support.cors = true;
+
+        $.ajax(
+            {
+                type: "GET",
+                url: '/api/items',
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                success: function (data) {
+                    console.log("success: " + data);
+
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert(msg.responseText);
+                }
+            });
 
     })()
 </script>
